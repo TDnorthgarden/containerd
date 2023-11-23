@@ -60,7 +60,7 @@ func newTask(id, namespace string, pid int, shim *client.Client, events *exchang
 		cg  cgroups.Cgroup
 	)
 	if pid > 0 {
-		cg, err = cgroups.Load(cgroups.V1, cgroups.PidPath(pid))
+		cg, err = cgroups.Load(cgroups.V1, cgroups.StaticPath(fmt.Sprintf(filepath.Join("/", namespace, id))))
 		if err != nil && err != cgroups.ErrCgroupDeleted {
 			return nil, err
 		}
